@@ -36,6 +36,10 @@ export const Register = () => {
   backLogin.textContent = 'Inicia Sesión';
   backLogin.addEventListener('click', () => onNavigate('/login'));
 
+  // ------boton register---registrado
+  buttonRegister.addEventListener('click', () => onNavigate('/login'));
+
+
   HomeDiv.appendChild(titleLogo);
   formLogin.appendChild(inputName);
   formLogin.appendChild(inputMail);
@@ -44,6 +48,6 @@ export const Register = () => {
   HomeDiv.appendChild(formLogin);
   HomeDiv.appendChild(textLogin);
   textLogin.appendChild(backLogin);
-  
+
   return HomeDiv;
 };
