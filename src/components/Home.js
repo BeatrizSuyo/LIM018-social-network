@@ -39,6 +39,7 @@ export const Home = () => {
   const post = document.createElement('div');
   post.className = 'postExample';
 
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < 5; i++) {
     const post2 = document.createElement('div');
     post2.className = 'postExample';
