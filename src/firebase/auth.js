@@ -49,4 +49,4 @@ export const createUserWithEmail = (email, password) => createUserWithEmailAndPa
 
 /* ---------- Firebase Auth - signInWithEmailAndPassword ---------- */
 
-export const signInWithEmail = (email, password) =>  signInWithEmailAndPassword(auth, email, password)
+export const signInWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password)
