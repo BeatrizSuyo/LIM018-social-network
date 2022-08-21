@@ -1,4 +1,5 @@
 /* eslint-disable import/no-cycle */
+import { signOutLogin } from '../firebase/auth.js';
 import { onNavigate } from '../main.js';
 
 export const Home = () => {
@@ -36,6 +37,7 @@ export const Home = () => {
   buttonPublication.textContent = 'Publicar';
   buttonPublication.id = 'buttonPublication';
 
+  /* post example */
   const post = document.createElement('div');
   post.className = 'postExample';
 
@@ -64,6 +66,17 @@ export const Home = () => {
   profileIcon.className = 'profileIcon';
   const profileIconImg = document.createElement('img');
   profileIconImg.src = '../img/user-white.png';
+
+  logOut.addEventListener('click', () => {
+    signOutLogin()
+      .then((result) => {
+        // eslint-disable-next-line no-console
+        console.log(result);
+        // eslint-disable-next-line no-console
+        console.log('cerraste sesion');
+        onNavigate('/');
+      });
+  });
 
   homeIcon.appendChild(homeIconImg);
   publicationIcon.appendChild(publicationIconImg);
