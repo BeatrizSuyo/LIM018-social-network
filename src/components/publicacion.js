@@ -1,8 +1,12 @@
 /* eslint-disable import/no-cycle */
-import { signOutLogin } from '../firebase/auth.js';
+import {
+  signOutLogin, stateChangedUser, addPost, getPost
+} from '../firebase/auth.js';
 import { onNavigate } from '../main.js';
 
-export const Home = () => {
+console.log('soy publicacion');
+
+export const publicacion = () => {
   const HomeDiv = document.createElement('div');
   // HomeDiv.classList = 'homeDiv';
   HomeDiv.classList = 'homeDiv homeView';
@@ -31,22 +35,74 @@ export const Home = () => {
 
   const publicationDiv = document.createElement('div');
   publicationDiv.className = 'publicationDiv';
+  // debugger
+  const userDiv = document.createElement('div');
+  publicationDiv.appendChild(userDiv);
+
   const textPublication = document.createElement('textarea');
   textPublication.placeholder = '¿Qué estás pensando?';
   const buttonPublication = document.createElement('button');
   buttonPublication.textContent = 'Publicar';
   buttonPublication.id = 'buttonPublication';
 
-  /* post example */
-  const post = document.createElement('div');
-  post.className = 'postExample';
+  buttonPublication.addEventListener('click', () => {
+    addPost({
+      description: textPublication.value,
+      dateDescription: new Date(),
+    }).then(() => {
+      textPublication.value = '';
+    });
+  });
 
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < 5; i++) {
-    const post2 = document.createElement('div');
-    post2.className = 'postExample';
-    post.appendChild(post2);
-  }
+  stateChangedUser((user) => {
+    const userName = document.createElement('p');
+    if (user) {
+      const uid = user.uid;
+      const displayName = user.displayName;
+      userName.textContent = displayName;
+      while (userDiv.firstChild) {
+        userDiv.removeChild(userDiv.firstChild);
+      }
+      userDiv.appendChild(userName);
+    } else {
+      // User is signed out
+      console.log('el usuario no inicio sesion');
+
+      onNavigate('/');
+    }
+  });
+
+  /* ----- Post ----- */
+  getPost().then((post) => post.forEach((doc) => {
+    const postDescription = doc.data().description;
+    const dateDescription = doc.data().dateDescription;
+
+    const divPost = document.createElement('div');
+    const nameUserPost = document.createElement('p');
+    const dateUserPost = document.createElement('p');
+    const descriptionUserPost = document.createElement('p');
+
+    nameUserPost.textContent = 'collection';
+    dateUserPost.textContent = dateDescription.toDate().toDateString() + ' - ' + dateDescription.toDate().toLocaleTimeString();
+    descriptionUserPost.textContent = postDescription;
+  
+    divPost.appendChild(nameUserPost);
+    divPost.appendChild(dateUserPost);
+    divPost.appendChild(descriptionUserPost);
+
+    principalContent.appendChild(divPost);
+  }));
+
+
+  // const post = document.createElement('div');
+  // post.className = 'postExample';
+
+  // // eslint-disable-next-line no-plusplus
+  // for (let i = 0; i < 5; i++) {
+  //   const post2 = document.createElement('div');
+  //   post2.className = 'postExample';
+  //   post.appendChild(post2);
+  // }
 
   /* ---------- */
   const navDiv = document.createElement('div');
@@ -71,8 +127,6 @@ export const Home = () => {
     signOutLogin()
       .then((result) => {
         // eslint-disable-next-line no-console
-        console.log(result);
-        // eslint-disable-next-line no-console
         console.log('cerraste sesion');
         onNavigate('/');
       });
@@ -93,7 +147,7 @@ export const Home = () => {
   headerDiv.appendChild(logOut);
 
   principalContent.appendChild(publicationDiv);
-  principalContent.appendChild(post);
+  // principalContent.appendChild(post);
   publicationDiv.appendChild(textPublication);
   publicationDiv.appendChild(buttonPublication);
   HomeDiv.appendChild(headerDiv);
@@ -102,4 +156,19 @@ export const Home = () => {
   HomeDiv.appendChild(navDiv);
 
   return HomeDiv;
+};
+
+function allPost(nameUser = 'collection', dateDescription, description) {
+  const divPost = document.createElement('div');
+  const nameUserPost = document.createElement('p');
+  const dateUserPost = document.createElement('p');
+  const descriptionUserPost = document.createComment('p');
+
+  nameUserPost.textContent = nameUser;
+  dateUserPost.textContent = dateDescription;
+  descriptionUserPost.textContent = description;
+
+  divPost.appendChild(nameUserPost);
+  divPost.appendChild(dateUserPost);
+  divPost.appendChild(descriptionUserPost);
 };
