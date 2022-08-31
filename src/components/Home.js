@@ -83,6 +83,8 @@ export const Home = () => {
       dateUserPost.className = 'dateUserPost';
       const descriptionUserPost = document.createElement('p');
       descriptionUserPost.className = 'descriptionUserPost';
+      const descriptionUserPostDiv = document.createElement('div');
+      descriptionUserPostDiv.className = 'descriptionUserPostDiv';
 
       nameUserPost.textContent = nameUser;
       dateUserPost.textContent = `${dateDescription.toDate().toDateString()} - ${dateDescription.toDate().toLocaleTimeString()}`;
@@ -91,7 +93,8 @@ export const Home = () => {
       divPost.appendChild(nameUserPost);
       divPost.appendChild(dateUserPost);
       divPost.appendChild(descriptionUserPost);
-
+      divPost.appendChild(descriptionUserPostDiv);
+      descriptionUserPostDiv.appendChild(descriptionUserPost);
       principalContent.appendChild(divPost);
     });
   });
