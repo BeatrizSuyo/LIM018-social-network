@@ -181,18 +181,23 @@ form input, button {
 }
 .publicationDiv {
     margin: 60px auto;
+    height: 250px;
 }
 
 .publicationDiv textarea {
     width: 285px;
-    height: 45px;
+    height: 7rem;
     border-radius: 10px;
     margin: 10px 15px;
     font-size: 1rem;
     resize: none;
     padding: 0.4rem;
 }
-
+.publicationDiv p {
+    font-size: 1rem;
+    font-weight: bolder;
+    padding: 10px;
+}
 #buttonPublication {
     width: 125px;
     background-color: #1ed760;
@@ -222,13 +227,9 @@ form input, button {
 .divPost {
     background: #D7FFC9;
     margin: 10px auto;
-    padding: 10px; 
+    padding: 10px;
+    height: auto; 
 }
-
-/* .divPost p {
-    margin: 5px auto;
-} */
-
 .nameUserPost {
     font-size: 1rem;
     font-weight: bolder;
@@ -240,14 +241,15 @@ form input, button {
     color: #7D7676;
     margin: 5px auto;
 }
-
-.descriptionUserPost {
-    font-size: 1.1rem;
+.descriptionUserPostDiv{
     background: white;
-    padding: 10px 2px;
     border-radius: 10px;
-    height: 40px;
+}
+.descriptionUserPost {
+    font-size: 1 rem;
+    padding: 10px 2px;
     margin: 8px auto;
+    word-wrap: break-word;
 
 }
 
