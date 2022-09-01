@@ -1,5 +1,7 @@
 /* eslint-disable import/no-cycle */
-import { stateChangedUser, addPost, getPost } from '../firebase/auth.js';
+import {
+  stateChangedUser, addPost, getPost, onGetPost,
+} from '../firebase/auth.js';
 import { onNavigate } from '../main.js';
 import setHeader from './Header.js';
 import { signOutUser } from '../lib/index.js';
@@ -51,6 +53,7 @@ export const Home = () => {
         userDiv.removeChild(userDiv.firstChild);
       }
       userDiv.appendChild(userName);
+
       buttonPublication.addEventListener('click', () => {
         addPost({
           nameUser: displayName,
@@ -62,42 +65,51 @@ export const Home = () => {
       });
     } else {
       // User is signed out
+      // while (principalContent.firstChild) {
+      //   principalContent.removeChild(principalContent, firstChild);
+      // }
       console.log('el usuario no inicio sesion');
-
       // onNavigate('/');
     }
   });
-
   /* ----- Post ----- */
-  getPost().then((post) => {
-    post.forEach((doc) => {
-      const postDescription = doc.data().description;
-      const dateDescription = doc.data().dateDescription;
-      const nameUser = doc.data().nameUser;
+  while (principalContent.firstChild) {
+    principalContent.removeChild(principalContent, firstChild);
+  }
+  onGetPost(() => {
+    getPost().then((post) => {
+      post.forEach((doc) => {
+        console.log('hola');
+        const postDescription = doc.data().description;
+        const dateDescription = doc.data().dateDescription;
+        const nameUser = doc.data().nameUser;
 
-      const divPost = document.createElement('div');
-      divPost.className = 'divPost';
-      const nameUserPost = document.createElement('p');
-      nameUserPost.className = 'nameUserPost';
-      const dateUserPost = document.createElement('p');
-      dateUserPost.className = 'dateUserPost';
-      const descriptionUserPost = document.createElement('p');
-      descriptionUserPost.className = 'descriptionUserPost';
-      const descriptionUserPostDiv = document.createElement('div');
-      descriptionUserPostDiv.className = 'descriptionUserPostDiv';
+        const divPost = document.createElement('div');
+        divPost.className = 'divPost';
+        const nameUserPost = document.createElement('p');
+        nameUserPost.className = 'nameUserPost';
+        const dateUserPost = document.createElement('p');
+        dateUserPost.className = 'dateUserPost';
+        const descriptionUserPost = document.createElement('p');
+        descriptionUserPost.className = 'descriptionUserPost';
+        const descriptionUserPostDiv = document.createElement('div');
+        descriptionUserPostDiv.className = 'descriptionUserPostDiv';
 
-      nameUserPost.textContent = nameUser;
-      dateUserPost.textContent = `${dateDescription.toDate().toDateString()} - ${dateDescription.toDate().toLocaleTimeString()}`;
-      descriptionUserPost.textContent = postDescription;
+        nameUserPost.textContent = nameUser;
+        dateUserPost.textContent = `${dateDescription.toDate().toDateString()} - ${dateDescription.toDate().toLocaleTimeString()}`;
+        descriptionUserPost.textContent = postDescription;
 
-      divPost.appendChild(nameUserPost);
-      divPost.appendChild(dateUserPost);
-      divPost.appendChild(descriptionUserPost);
-      divPost.appendChild(descriptionUserPostDiv);
-      descriptionUserPostDiv.appendChild(descriptionUserPost);
-      principalContent.appendChild(divPost);
+        divPost.appendChild(nameUserPost);
+        divPost.appendChild(dateUserPost);
+        divPost.appendChild(descriptionUserPost);
+        divPost.appendChild(descriptionUserPostDiv);
+        descriptionUserPostDiv.appendChild(descriptionUserPost);
+        principalContent.appendChild(divPost);
+      });
     });
+    // console.log(onPost);
   });
+  // });
 
   /* ---------- */
   const navDiv = document.createElement('div');

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 export default function (div, callback) {
   const logoDiv = document.createElement('div');
   logoDiv.className = 'logoDiv';
@@ -22,3 +23,4 @@ export default function (div, callback) {
   div.appendChild(titleLogo);
   div.appendChild(logOut);
 }
+
