@@ -65,21 +65,17 @@ export const Home = () => {
       });
     } else {
       // User is signed out
-      // while (principalContent.firstChild) {
-      //   principalContent.removeChild(principalContent, firstChild);
-      // }
       console.log('el usuario no inicio sesion');
       // onNavigate('/');
     }
   });
   /* ----- Post ----- */
-  while (principalContent.firstChild) {
-    principalContent.removeChild(principalContent, firstChild);
-  }
+  const containerDivPost = document.createElement('div');
   onGetPost(() => {
+    containerDivPost.innerHTML = '';
     getPost().then((post) => {
       post.forEach((doc) => {
-        console.log('hola');
+        // console.log('hola');
         const postDescription = doc.data().description;
         const dateDescription = doc.data().dateDescription;
         const nameUser = doc.data().nameUser;
@@ -101,10 +97,11 @@ export const Home = () => {
 
         divPost.appendChild(nameUserPost);
         divPost.appendChild(dateUserPost);
-        divPost.appendChild(descriptionUserPost);
+        // divPost.appendChild(descriptionUserPost);//
         divPost.appendChild(descriptionUserPostDiv);
         descriptionUserPostDiv.appendChild(descriptionUserPost);
-        principalContent.appendChild(divPost);
+        containerDivPost.appendChild(divPost);
+        principalContent.appendChild(containerDivPost);
       });
     });
     // console.log(onPost);
