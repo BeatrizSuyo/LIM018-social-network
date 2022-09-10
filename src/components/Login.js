@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-cycle */
 import { signInWithGoogle, signInWithEmail } from '../firebase/auth.js';
 import { onNavigate } from '../main.js';
@@ -57,7 +58,9 @@ export const Login = () => {
         onNavigate('/home');
       })
       .catch((error) => {
+        // eslint-disable-next-line no-unused-vars
         const errorCode = error.code;
+        // eslint-disable-next-line no-unused-vars
         const errorMessage = error.message;
       });
   });
@@ -69,11 +72,14 @@ export const Login = () => {
     signInWithEmail(email, password)
       .then((userCredential) => {
       // Signed in
+        // eslint-disable-next-line no-unused-vars
         const user = userCredential.user;
         onNavigate('/home');
       })
       .catch((error) => {
+        // eslint-disable-next-line no-unused-vars
         const errorCode = error.code;
+        // eslint-disable-next-line no-unused-vars
         const errorMessage = error.message;
       });
   });

@@ -6,6 +6,31 @@ import { onNavigate } from '../main.js';
 import setHeader from './Header.js';
 import { signOutUser } from '../lib/index.js';
 
+function editModal(div, text, idPost) {
+  const divBlock = document.createElement('div');
+  divBlock.className = 'divBlock';
+  const divPost = document.createElement('div');
+  divPost.className = 'divPost divEditPost';
+  const closeEditModal = document.createElement('div');
+  closeEditModal.textContent = '❌';
+  closeEditModal.className = 'closeEditModal';
+  const textEdit = document.createElement('textarea');
+  textEdit.className = 'textEdit';
+  textEdit.value = text;
+  const buttonSave = document.createElement('button');
+  buttonSave.textContent = 'Guardar';
+  buttonSave.id = 'buttonSave';
+
+  closeEditModal.addEventListener('click', () => { divBlock.style.display = 'none'; });
+  buttonSave.addEventListener('click', () => editPost(idPost, textEdit.value));
+
+  divPost.appendChild(closeEditModal);
+  divPost.appendChild(textEdit);
+  divPost.appendChild(buttonSave);
+  divBlock.appendChild(divPost);
+  div.appendChild(divBlock);
+}
+
 export const Home = () => {
   const HomeDiv = document.createElement('div');
   HomeDiv.classList = 'homeDiv homeView';
@@ -114,6 +139,7 @@ export const Home = () => {
           if (uidUserPost === auth.currentUser.uid) {
             deletePost(idPost);
           } else {
+            // eslint-disable-next-line no-alert
             alert('No puedes eliminar este post, por que no te pertenece!😎');
           }
         });
@@ -121,8 +147,10 @@ export const Home = () => {
         editPostDiv.addEventListener('click', () => {
           if (uidUserPost === auth.currentUser.uid) {
             const text = postDescription;
+            // eslint-disable-next-line no-use-before-define
             editModal(containerDivPost, text, idPost);
           } else {
+            // eslint-disable-next-line no-alert
             alert('No puedes editar este post, por que no te pertenece!😢');
           }
         });
@@ -176,27 +204,27 @@ export const Home = () => {
   return HomeDiv;
 };
 
-function editModal(div, text, idPost) {
-  const divBlock = document.createElement('div');
-  divBlock.className = 'divBlock';
-  const divPost = document.createElement('div');
-  divPost.className = 'divPost divEditPost';
-  const closeEditModal = document.createElement('div');
-  closeEditModal.textContent = '❌';
-  closeEditModal.className = 'closeEditModal';
-  const textEdit = document.createElement('textarea');
-  textEdit.className = 'textEdit';
-  textEdit.value = text;
-  const buttonSave = document.createElement('button');
-  buttonSave.textContent = 'Guardar';
-  buttonSave.id = 'buttonSave';
+// function editModal(div, text, idPost) {
+//   const divBlock = document.createElement('div');
+//   divBlock.className = 'divBlock';
+//   const divPost = document.createElement('div');
+//   divPost.className = 'divPost divEditPost';
+//   const closeEditModal = document.createElement('div');
+//   closeEditModal.textContent = '❌';
+//   closeEditModal.className = 'closeEditModal';
+//   const textEdit = document.createElement('textarea');
+//   textEdit.className = 'textEdit';
+//   textEdit.value = text;
+//   const buttonSave = document.createElement('button');
+//   buttonSave.textContent = 'Guardar';
+//   buttonSave.id = 'buttonSave';
 
-  closeEditModal.addEventListener('click', () => { divBlock.style.display = 'none'; });
-  buttonSave.addEventListener('click', () => editPost(idPost, textEdit.value));
+//   closeEditModal.addEventListener('click', () => { divBlock.style.display = 'none'; });
+//   buttonSave.addEventListener('click', () => editPost(idPost, textEdit.value));
 
-  divPost.appendChild(closeEditModal);
-  divPost.appendChild(textEdit);
-  divPost.appendChild(buttonSave);
-  divBlock.appendChild(divPost);
-  div.appendChild(divBlock);
-}
+//   divPost.appendChild(closeEditModal);
+//   divPost.appendChild(textEdit);
+//   divPost.appendChild(buttonSave);
+//   divBlock.appendChild(divPost);
+//   div.appendChild(divBlock);
+// }

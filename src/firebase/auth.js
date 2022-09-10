@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js';
 import {
@@ -9,10 +10,11 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
-// eslint-disable-next-line import/no-unresolved
+  // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js';
 import {
   getFirestore, collection, addDoc, getDocs, query, orderBy, onSnapshot, doc, deleteDoc, updateDoc,
+  // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.9.2/firebase-firestore.js';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -38,17 +40,16 @@ const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 export const auth = getAuth();
 
-/* ---------- Firebase Auth - GoogleAuthProvider ---------- */
+/* ----- Firebase Auth - GoogleAuthProvider ---logearse con google------- */
 
 export const signInWithGoogle = () => signInWithPopup(auth, provider);
 
-/* ---------- Firebase Auth - createUserWithEmailAndPassword ---------- */
+/* ------ Firebase Auth - createUserWithEmailAndPassword ---------- */
 
 // eslint-disable-next-line max-len
 export const createUserWithEmail = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
 /* ---------- Firebase Auth - signInWithEmailAndPassword ---------- */
-
 // eslint-disable-next-line max-len
 export const signInWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
@@ -60,12 +61,13 @@ export function signOutLogin() { return signOut(auth); }
 
 export function stateChangedUser(callback) { return onAuthStateChanged(auth, callback); }
 
+/* -- conexion a firestore ----- */
 export const db = getFirestore(app);
 
+/* --creando post  ------------- */
 export function addPost(publicacion) { return addDoc(collection(db, 'post'), publicacion); }
 
-/* ----- Update Profile */
-
+/* ----- Update Profile--perfil------- */
 export function updateProfileUser(userName, userId) {
   return updateProfile(auth.currentUser, {
     displayName: userName,
