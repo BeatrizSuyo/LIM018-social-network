@@ -101,10 +101,7 @@ export const Register = () => {
         updateProfileUser(inputName.value, uid)
           // eslint-disable-next-line no-console
           .then(() => console.log('Nombre actualizado'));
-<<<<<<< Updated upstream
-=======
         // eslint-disable-next-line no-console
->>>>>>> Stashed changes
         // console.log(user);
         // eslint-disable-next-line no-console
         console.log('Registro exitoso');
